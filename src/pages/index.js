@@ -11,15 +11,14 @@ import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
 import { Footer } from '../components/Footer'
 
 const Index = () => (
   <Container height="100vh">
-    <Hero />
-    <Main>
+    <Hero title="Tomatillo"/>
+    <Main textAlign="center">
       <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code>.
+        A Pomodoro timer focused on accountability.
       </Text>
 
       <List spacing={3} my={0}>
@@ -45,9 +44,11 @@ const Index = () => (
 
     <DarkModeSwitch />
     <Footer>
-      <Text>Next ❤️ Chakra</Text>
+      <Text>
+        Open sourced on {" "}
+        <ChakraLink isExternal href="https://github.com/googol88/tomatillo" flexGrow={1}>GitHub</ChakraLink>
+      </Text>
     </Footer>
-    <CTA />
   </Container>
 )
 
