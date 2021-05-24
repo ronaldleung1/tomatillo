@@ -1,12 +1,13 @@
 import {
   Link as ChakraLink,
   Text,
-  Code,
   List,
   ListIcon,
   ListItem,
+  Circle,
 } from '@chakra-ui/react'
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+import { Timer } from '../components/Timer'
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
@@ -41,7 +42,7 @@ const Index = () => (
         </ListItem>
       </List>
     </Main>
-
+    <Timer />
     <DarkModeSwitch />
     <Footer>
       <Text>
