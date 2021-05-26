@@ -7,7 +7,8 @@ import {
 import React, { useEffect, useState } from 'react';
 
 export const Timer = () => {
-  const [seconds, setSeconds] = useState(0);
+  const [timerLen, setTimerLen] = useState(25*60);
+  const [seconds, setSeconds] = useState(timerLen);
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -15,7 +16,7 @@ export const Timer = () => {
   }
 
   function reset() {
-    setSeconds(0);
+    setSeconds(timerLen);
     setIsActive(false);
   }
 
@@ -23,7 +24,7 @@ export const Timer = () => {
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
+        setSeconds(seconds => seconds - 1);
       }, 1000);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
@@ -33,10 +34,10 @@ export const Timer = () => {
 
   return (
     <>
-      <Box border="1px" minW="400px" borderColor="gray" borderRadius={4} p={8}>
+      <Box border="1px" minW={96} borderColor="gray" borderRadius={4} p={8}>
         <Text fontSize="6xl" textAlign="center">{seconds}s</Text>
         <Stack spacing={4} mt={4} direction="row" justifyContent="center" align="center">
-          <Button colorScheme="blue" minWidth={24} onClick={toggle}>
+          <Button colorScheme="blue" minWidth={32} onClick={toggle}>
             {isActive ? 'Pause' : 'Start'}
           </Button>
           <Button colorScheme="gray" onClick={reset}>
