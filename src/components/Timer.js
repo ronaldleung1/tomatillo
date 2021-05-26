@@ -12,7 +12,7 @@ export const Timer = () => {
   const [seconds, setSeconds] = useState(timerLen);
   const [isActive, setIsActive] = useState(false);
 
-  const bdr = useColorModeValue("gray.300", "gray.700")
+  const bdr = useColorModeValue("gray.200", "gray.700")
 
   function toggle() {
     setIsActive(!isActive);
@@ -38,7 +38,11 @@ export const Timer = () => {
   return (
     <>
       <Box minW={96} borderWidth={2} borderColor={bdr} borderRadius={4} p={8}>
-        <Text fontSize="6xl" textAlign="center">{seconds}s</Text>
+        <Text fontSize="6xl" textAlign="center">
+          {Math.floor(seconds/60)}
+          :
+          {seconds%60 < 10 ? `0${seconds%60}` : seconds%60}
+        </Text>
         <Stack spacing={4} mt={4} direction="row" justifyContent="center" align="center">
           <Button colorScheme="blue" minWidth={32} onClick={toggle}>
             {isActive ? 'Pause' : 'Start'}
