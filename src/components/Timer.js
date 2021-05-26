@@ -4,10 +4,10 @@ import {
   Text,
   Button
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Timer = () => {
-  const [seconds, setSeconds] = useState(20);
+  const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -18,6 +18,18 @@ export const Timer = () => {
     setSeconds(0);
     setIsActive(false);
   }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
 
   return (
     <>
