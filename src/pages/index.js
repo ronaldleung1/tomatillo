@@ -11,11 +11,11 @@ import { Timer } from '../components/Timer'
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
+import { ColorModeSwitcher } from '../components/ColorModeSwitcher'
 import { Footer } from '../components/Footer'
 
 const Index = () => (
-  <Container height="100vh">
+  <Container>
     <Hero title="Tomatillo"/>
     <Main textAlign="center">
       <Text>
@@ -23,7 +23,7 @@ const Index = () => (
       </Text>
     </Main>
     <Timer />
-    <DarkModeSwitch />
+    <ColorModeSwitcher />
     <Footer>
       <Text>
         Open sourced on {" "}
