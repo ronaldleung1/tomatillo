@@ -15,13 +15,11 @@ import { ColorModeSwitcher } from '../components/ColorModeSwitcher'
 import { Footer } from '../components/Footer'
 
 const Index = () => (
-  <Container>
+  <Container minHeight="100vh">
     <Hero title="Tomatillo"/>
-    <Main textAlign="center">
-      <Text>
-        A Pomodoro timer focused on accountability.
-      </Text>
-    </Main>
+    <Text>
+      A Pomodoro timer focused on accountability.
+    </Text>
     <Timer />
     <ColorModeSwitcher />
     <Footer>
