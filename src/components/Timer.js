@@ -3,8 +3,10 @@ import {
   Stack,
   Text,
   Button,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
+import { TimerMode }from './TimerMode';
+
 import React, { useEffect, useState } from 'react';
 
 export const Timer = () => {
@@ -37,6 +39,7 @@ export const Timer = () => {
 
   return (
     <>
+      <TimerMode my={4} />
       <Box minW={96} borderWidth={2} borderColor={bdr} borderRadius={4} p={8}>
         <Text fontSize="6xl" textAlign="center">
           {Math.floor(seconds/60)}

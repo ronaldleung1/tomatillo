@@ -1,23 +1,22 @@
 
 import {
+  Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
 } from "@chakra-ui/react"
-import React, { useEffect, useState } from 'react';
+import { ChevronDown } from 'react-feather';
 
-export const TimerMode = () => {
+export const TimerMode = (props) => (
   <Menu>
-    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-      Actions
+    <MenuButton as={Button} rightIcon={<ChevronDown />} {...props}>
+      Timer Mode
     </MenuButton>
     <MenuList>
-      <MenuItem>Download</MenuItem>
-      <MenuItem>Create a Copy</MenuItem>
-      <MenuItem>Mark as Draft</MenuItem>
-      <MenuItem>Delete</MenuItem>
-      <MenuItem>Attend a Workshop</MenuItem>
+      <MenuItem>Pomodoro</MenuItem>
+      <MenuItem>Short Break</MenuItem>
+      <MenuItem>Long Break</MenuItem>
     </MenuList>
   </Menu>
-}
+)
