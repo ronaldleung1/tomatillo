@@ -26,6 +26,10 @@ export const Timer = () => {
   }
 
   useEffect(() => {
+    reset();
+  }, [timerLen])
+  
+  useEffect(() => {
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
@@ -39,7 +43,7 @@ export const Timer = () => {
 
   return (
     <>
-      <TimerMode onClick={(length) => {setTimerLen(length); setSeconds(length)}} my={4} />
+      <TimerMode onClick={setTimerLen} my={4} />
       <Box minW={96} borderWidth={2} borderColor={bdr} borderRadius={4} p={8}>
         <Text fontSize="6xl" textAlign="center">
           {Math.floor(seconds/60)}
