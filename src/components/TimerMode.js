@@ -8,11 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { ChevronDown } from 'react-feather';
 
-import React, { useState } from 'react';
-
-export const TimerMode = ({onClick, ...props}) => {
-  const [mode, setMode] = useState("Pomodoro");
-
+export const TimerMode = ({mode, onClick, ...props}) => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<ChevronDown size={12} />} {...props}>
@@ -21,22 +17,19 @@ export const TimerMode = ({onClick, ...props}) => {
       <MenuList>
         <MenuItem
           onClick={() => {
-            setMode("Pomodoro");
-            onClick(25*60);
+            onClick("Pomodoro");
           }}>
           Pomodoro
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setMode("Short Break");
-            onClick(5*60);
+            onClick("Short Break");
           }}>
           Short Break
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setMode("Long Break");
-            onClick(15*60);
+            onClick("Long Break");
           }}>
           Long Break
         </MenuItem>

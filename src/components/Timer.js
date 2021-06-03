@@ -13,6 +13,7 @@ export const Timer = () => {
   const [timerLen, setTimerLen] = useState(25*60);
   const [seconds, setSeconds] = useState(timerLen);
   const [isActive, setIsActive] = useState(false);
+  const [mode, setMode] = useState("Pomodoro");
 
   const bdr = useColorModeValue("gray.200", "gray.700")
 
@@ -24,6 +25,16 @@ export const Timer = () => {
     setSeconds(timerLen);
     setIsActive(false);
   }
+
+  useEffect(() => {
+    if(mode === "Pomodoro") {
+      setTimerLen(25*60);
+    } else if(mode === "Short Break") {
+      setTimerLen(5*60);
+    } else {
+      setTimerLen(15*60);
+    }
+  }, [mode])
 
   useEffect(() => {
     reset();
@@ -45,7 +56,7 @@ export const Timer = () => {
 
   return (
     <>
-      <TimerMode onClick={setTimerLen} my={4} />
+      <TimerMode mode={mode} onClick={setMode} my={4} />
       <Box minW={96} borderWidth={2} borderColor={bdr} borderRadius={4} p={8}>
         <Text fontSize="6xl" textAlign="center">
           {Math.floor(seconds/60)}
