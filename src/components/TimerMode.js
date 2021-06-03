@@ -10,7 +10,7 @@ import { ChevronDown } from 'react-feather';
 
 import React, { useState } from 'react';
 
-export const TimerMode = ({onClick, props}) => {
+export const TimerMode = ({onClick, ...props}) => {
   const [mode, setMode] = useState("Pomodoro");
 
   return (
