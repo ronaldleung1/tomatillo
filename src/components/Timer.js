@@ -5,7 +5,9 @@ import {
   Button,
   useColorModeValue,
 } from '@chakra-ui/react';
+
 import { TimerMode }from './TimerMode';
+import { TaskList }from './TaskList';
 
 import React, { useEffect, useState } from 'react';
 
@@ -76,6 +78,7 @@ export const Timer = () => {
           </Button>
         </Stack>
       </Box>
+      <TaskList mt={4}/>
     </>
   )
 }
