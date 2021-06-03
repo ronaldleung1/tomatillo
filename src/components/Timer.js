@@ -10,10 +10,16 @@ import { TimerMode }from './TimerMode';
 import React, { useEffect, useState } from 'react';
 
 export const Timer = () => {
-  const [timerLen, setTimerLen] = useState(25*60);
+  const [mode, setMode] = useState("Pomodoro");
+  const [modeTime, setModeTime] = useState({
+    "Pomodoro": 25*60,
+    "Short Break": 5*60,
+    "Long Break": 15*60
+  })
+
+  const [timerLen, setTimerLen] = useState(mode);
   const [seconds, setSeconds] = useState(timerLen);
   const [isActive, setIsActive] = useState(false);
-  const [mode, setMode] = useState("Pomodoro");
 
   const bdr = useColorModeValue("gray.200", "gray.700")
 
@@ -27,13 +33,7 @@ export const Timer = () => {
   }
 
   useEffect(() => {
-    if(mode === "Pomodoro") {
-      setTimerLen(25*60);
-    } else if(mode === "Short Break") {
-      setTimerLen(5*60);
-    } else {
-      setTimerLen(15*60);
-    }
+    setTimerLen(modeTime[mode]);
   }, [mode])
 
   useEffect(() => {
@@ -47,6 +47,10 @@ export const Timer = () => {
         setSeconds(seconds => seconds - 1);
       }, 1000);
     } else if(isActive) {
+      if(mode === "Pomodoro")
+        setMode("Short Break");
+      else
+        setMode("Pomodoro");
       reset();
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
