@@ -3,11 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export const TaskList = (props) => {
   // array containing names of tasks
-  const [tasks, setTasks] = useState([
-    "Task 1",
-    "Task 2",
-    "Task 3",
-  ]);
+  const [tasks, setTasks] = useState([]);
   // current value in form input
   const [value, setValue] = useState("");
 
@@ -27,8 +23,8 @@ export const TaskList = (props) => {
       <form onSubmit={handleSubmit}>
         <Input placeholder="Task" value={value} onChange={handleChange} {...props}/>
       </form>
-      {tasks.map((task) => // puts each task in its own Text component
-        <Text>{task}</Text>
+      {tasks.map((task, index) => // puts each task in its own Text component
+        <Text key={index}>{task}</Text>
       )}
     </>
   )
