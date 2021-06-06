@@ -78,7 +78,7 @@ export const Timer = () => {
           </Button>
         </Stack>
       </Box>
-      <TaskList mt={4}/>
+      <TaskList my={4}/>
     </>
   )
 }

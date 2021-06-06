@@ -20,7 +20,7 @@ const Index = () => (
         </Text>
         <Timer />
       </Container>
-      <Footer>
+      <Footer alignItems="center">
         <Text>
           Open sourced on {" "}
           <ChakraLink isExternal href="https://github.com/googol88/tomatillo" flexGrow={1}>GitHub</ChakraLink>
