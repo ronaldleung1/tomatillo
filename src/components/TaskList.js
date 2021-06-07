@@ -29,11 +29,11 @@ export const TaskList = (props) => {
   }
 
   return (
-    <>
+    <Box {...props}>
       <TaskModal onSubmit={handleSubmit} />
-      <Flex direction="column-reverse" {...props}>
+      <Flex direction="column-reverse">
         {tasks.map((task, index) => // puts each task in its own Text component
-          <Flex key={index} my={2} py={3} px={6} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
+          <Flex key={index} my={2} p={4} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
             <Link href={repo["html_url"]} isExternal>
               <Box p={3} borderWidth="1px" borderRadius="lg">
                 <Text fontWeight="bold">{repo["full_name"]}</Text>
@@ -48,6 +48,6 @@ export const TaskList = (props) => {
           </Flex>
         )}
       </Flex>
-    </>
+    </Box>
   )
 }
