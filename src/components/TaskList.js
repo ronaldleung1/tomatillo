@@ -9,16 +9,13 @@ export const TaskList = (props) => {
   // array containing names of tasks
   const [tasks, setTasks] = useState([]);
 
-  const [repo, setRepo] = useState(null);
-
   // wrapper of fetch() parsed to JSON
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   
 
   const handleSubmit = (value) => {
-    fetcher(`https://api.github.com/repos/${value}`)
-      .then(repo => setRepo(repo))
-      .then(repo => setTasks(values => [...values, repo]))
+    fetcher(`https://api.github.com/repos/${value.repo}`)
+      .then(repo => setTasks(values => [...values, {title: value.title, repo: repo}]))
     // spread operator to push new value to tasks array
   }
 
@@ -34,12 +31,15 @@ export const TaskList = (props) => {
       <Flex direction="column-reverse">
         {tasks.map((task, index) => // puts each task in its own Text component
           <Flex key={index} my={2} p={4} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
-            <Link href={repo["html_url"]} isExternal>
-              <Box p={3} borderWidth="1px" borderRadius="lg">
-                <Text fontWeight="bold">{repo["full_name"]}</Text>
-                <Text color="gray.500">{repo["description"]}</Text>
-              </Box>
-            </Link>
+            <Box>
+              <Text fontSize="lg" mb={2}>{task.title}</Text>
+              <Link href={task.repo["html_url"]} isExternal>
+                <Box p={3} borderWidth="1px" borderRadius="lg">
+                  <Text fontWeight="bold">{task.repo["full_name"]}</Text>
+                  <Text color="gray.500">{task.repo["description"]}</Text>
+                </Box>
+              </Link>
+            </Box>
             <Spacer />
             {/* arrow function `=>` so handleDelete isn't called on render */}
             <Button onClick={() => handleDelete(index)} ml={2} colorScheme="red" variant="ghost">

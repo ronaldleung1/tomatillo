@@ -15,7 +15,10 @@ import React, { useState } from 'react';
 
 export const TaskModal = ({onSubmit}) => {
   // current value in form input
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState({
+    title: "",
+    repo: ""
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,14 +26,28 @@ export const TaskModal = ({onSubmit}) => {
     // clears form input
     setValue("");
   }
-  const handleChange = (e) => {
+  const handleTitleChange = (e) => {
+    e.persist();
+    setValue((value) => ({
+      ...value,
+      title: e.target.value,
+    }));
+  };
+  const handleRepoChange = (e) => {
+    e.persist();
+    setValue((value) => ({
+      ...value,
+      repo: e.target.value,
+    }));
+  };
+  /*const handleChange = (e) => {
     setValue(e.target.value);
-  }
+  }*/
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Button onClick={onOpen}>Create Task</Button>
+      <Button onClick={onOpen}>Add Task</Button>
       <Modal
         isCentered
         onClose={onClose}
@@ -39,18 +56,20 @@ export const TaskModal = ({onSubmit}) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Add Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={handleSubmit}>
-              <label>Task Description</label>
-              <Input placeholder="Task" value={value} onChange={handleChange}/>
-              {/*<label>GitHub Repository</label>
-              <Input placeholder="User/Repo" value={value} onChange={handleChange}/>*/}
-            </form>
+            <label>
+              Task
+              <Input name="title" placeholder="Description" value={value.title} onChange={handleTitleChange} mb={3}/>
+            </label>
+            <label>
+              GitHub Repository
+              <Input name="repo" placeholder="user/repo" value={value.repo} onChange={handleRepoChange}/>
+            </label>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
               Create
             </Button>
             <Button variant="ghost" onClick={onClose}>Cancel</Button>
