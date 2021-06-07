@@ -1,4 +1,4 @@
-import { Input, Flex, Box, Button, Text, Spacer } from "@chakra-ui/react";
+import { Input, Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
 import { Trash } from "react-feather";
@@ -42,13 +42,15 @@ export const TaskList = (props) => {
       <Flex direction="column-reverse">
         {tasks.map((task, index) => // puts each task in its own Text component
           <Flex key={index} my={2} py={3} px={6} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
-            <Box>
-              <Text>{repo["full_name"]}</Text>
-              <Text>{repo["description"]}</Text>
-            </Box>
+            <Link href={repo["html_url"]} isExternal>
+              <Box p={3} borderWidth="1px" borderRadius="lg">
+                <Text fontWeight="bold">{repo["full_name"]}</Text>
+                <Text color="gray.500">{repo["description"]}</Text>
+              </Box>
+            </Link>
             <Spacer />
             {/* arrow function `=>` so handleDelete isn't called on render */}
-            <Button onClick={() => handleDelete(index)} colorScheme="red" variant="ghost">
+            <Button onClick={() => handleDelete(index)} ml={2} colorScheme="red" variant="ghost">
               <Trash size={18}/>
             </Button>
           </Flex>
