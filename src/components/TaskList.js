@@ -1,31 +1,25 @@
-import { Input, Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
-import React, { useEffect, useState } from 'react';
+import { Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
+import React, { useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
+
+import { TaskModal } from "./TaskModal"
 import { Trash } from "react-feather";
 
 export const TaskList = (props) => {
   // array containing names of tasks
   const [tasks, setTasks] = useState([]);
-  // current value in form input
-  const [value, setValue] = useState("");
+
   const [repo, setRepo] = useState(null);
 
   // wrapper of fetch() parsed to JSON
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  } 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (value) => {
     fetcher(`https://api.github.com/repos/${value}`)
       .then(repo => setRepo(repo))
       .then(repo => setTasks(values => [...values, repo]))
     // spread operator to push new value to tasks array
-    
-    // clears form input
-    setValue("");
-    e.preventDefault();
   }
 
   const handleDelete = (index) => {
@@ -36,10 +30,8 @@ export const TaskList = (props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Input placeholder="Task" value={value} onChange={handleChange} {...props}/>
-      </form>
-      <Flex direction="column-reverse">
+      <TaskModal onSubmit={handleSubmit} />
+      <Flex direction="column-reverse" {...props}>
         {tasks.map((task, index) => // puts each task in its own Text component
           <Flex key={index} my={2} py={3} px={6} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
             <Link href={repo["html_url"]} isExternal>
