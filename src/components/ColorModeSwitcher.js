@@ -1,4 +1,6 @@
-
+/*
+ * Color mode switch to change from light to dark mode and vice-versa
+ */
 import React from 'react';
 import { useColorMode, useColorModeValue, IconButton } from '@chakra-ui/react';
 import { Moon, Sun } from 'react-feather';

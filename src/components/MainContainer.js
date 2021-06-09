@@ -1,3 +1,6 @@
+/*
+ * A container that spans the entire window, used as a hacky fix for color modes
+ */
 import { Box, useColorMode } from '@chakra-ui/react'
 
 export const MainContainer = (props) => {

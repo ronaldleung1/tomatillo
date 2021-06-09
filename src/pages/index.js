@@ -14,13 +14,11 @@ import { Footer } from '../components/Footer'
 
 const Index = () => (
   <>
-    <MainContainer as="main" textAlign="center" minHeight="100vh">
+    <MainContainer as="main" textAlign="center" minHeight="100vh" pt={12}>
       <Hero textAlign="center" title="Tomatillo"/>
       <ColorModeSwitcher />
       <Container>
-        <Text>
-          A Pomodoro timer focused on accountability.
-        </Text>
+        <Text>A Pomodoro timer for developers.</Text>
         <Timer />
       </Container>
       <Footer justifyContent="center">

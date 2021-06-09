@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 import React, { useState } from 'react';
+import { Plus } from 'react-feather';
 
 export const TaskModal = ({onSubmit}) => {
   // current value in form input
@@ -30,6 +31,8 @@ export const TaskModal = ({onSubmit}) => {
     setValue("");
     onClose();
   }
+  
+  // when contents of input changes, the state of `value` is updated since it's a controlled input
   const handleTitleChange = (e) => {
     e.persist();
     setValue((value) => ({
@@ -45,10 +48,11 @@ export const TaskModal = ({onSubmit}) => {
     }));
   };
 
+  // hooks, or methods, from Chakra UI allowing modal to open and close
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Button onClick={onOpen}>Add Task</Button>
+      <Button onClick={onOpen}><Plus size={18}/>Add Task</Button>
       <Modal
         isCentered
         onClose={onClose}
@@ -70,7 +74,7 @@ export const TaskModal = ({onSubmit}) => {
             </label>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
+            <Button colorScheme="whatsapp" mr={3} onClick={handleSubmit}>
               Create
             </Button>
             <Button variant="ghost" onClick={onClose}>Cancel</Button>

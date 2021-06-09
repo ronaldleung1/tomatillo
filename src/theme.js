@@ -1,3 +1,6 @@
+/*
+ * Defaults from boilerplate, allowing customization of Chakra UI theme
+ */
 import { extendTheme } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 
