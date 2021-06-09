@@ -1,4 +1,7 @@
-import { 
+/*
+ * A dialog that prompts the user to create a new task, with fields for the description and GitHub repository
+ */
+import {
   Input,
   Button,
   Modal,
@@ -25,6 +28,7 @@ export const TaskModal = ({onSubmit}) => {
     onSubmit(value);
     // clears form input
     setValue("");
+    onClose();
   }
   const handleTitleChange = (e) => {
     e.persist();
@@ -40,9 +44,6 @@ export const TaskModal = ({onSubmit}) => {
       repo: e.target.value,
     }));
   };
-  /*const handleChange = (e) => {
-    setValue(e.target.value);
-  }*/
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
@@ -61,11 +62,11 @@ export const TaskModal = ({onSubmit}) => {
           <ModalBody>
             <label>
               Task
-              <Input name="title" placeholder="Description" value={value.title} onChange={handleTitleChange} mb={3}/>
+              <Input name="title" placeholder="Description" value={value.title} onChange={handleTitleChange} autocomplete="off" mb={3}/>
             </label>
             <label>
               GitHub Repository
-              <Input name="repo" placeholder="user/repo" value={value.repo} onChange={handleRepoChange}/>
+              <Input name="repo" placeholder="user/repo" value={value.repo} onChange={handleRepoChange} autocomplete="off" />
             </label>
           </ModalBody>
           <ModalFooter>

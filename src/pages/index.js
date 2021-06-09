@@ -1,3 +1,6 @@
+/*
+ * Main page for Tomatillo, located in `/` route
+ */
 import {
   Link as ChakraLink,
   Text,

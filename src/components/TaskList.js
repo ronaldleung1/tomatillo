@@ -1,3 +1,7 @@
+/*
+ * Displays a list of tasks and handles fetching from GitHub API
+ * Contains internal state and ability to delete tasks
+ */
 import { Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
 import React, { useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
@@ -14,9 +18,13 @@ export const TaskList = (props) => {
   
 
   const handleSubmit = (value) => {
-    fetcher(`https://api.github.com/repos/${value.repo}`)
-      .then(repo => setTasks(values => [...values, {title: value.title, repo: repo}]))
-    // spread operator to push new value to tasks array
+    if(value.repo) {
+      fetcher(`https://api.github.com/repos/${value.repo}`)
+        .then(repo => setTasks(values => [...values, {title: value.title, repo: repo}]))
+    } else {
+      // spread operator `...` to push new value to tasks array
+      setTasks(values => [...values, {title: value.title}]);
+    }
   }
 
   const handleDelete = (index) => {
@@ -33,12 +41,13 @@ export const TaskList = (props) => {
           <Flex key={index} my={2} p={4} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
             <Box>
               <Text fontSize="lg" mb={2}>{task.title}</Text>
+              {task.repo !== null &&
               <Link href={task.repo["html_url"]} isExternal>
                 <Box p={3} borderWidth="1px" borderRadius="lg">
                   <Text fontWeight="bold">{task.repo["full_name"]}</Text>
                   <Text color="gray.500">{task.repo["description"]}</Text>
                 </Box>
-              </Link>
+              </Link>}
             </Box>
             <Spacer />
             {/* arrow function `=>` so handleDelete isn't called on render */}

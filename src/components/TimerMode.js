@@ -1,4 +1,7 @@
 
+/*
+ * Select component to switch between timer modes (Pomodoro, Short Break, Long Break)
+ */
 import {
   Button,
   Menu,
@@ -17,6 +20,7 @@ export const TimerMode = ({mode, onClick, ...props}) => {
       <MenuList>
         <MenuItem
           onClick={() => {
+            // event handler that triggers setMode in Timer.js, same for other MenuItems
             onClick("Pomodoro");
           }}>
           Pomodoro
