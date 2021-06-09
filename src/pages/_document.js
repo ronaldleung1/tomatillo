@@ -1,3 +1,6 @@
+/*
+ * The highest level component, renders all pages with content in body and meta info in head
+ */
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 import { ColorModeScript } from '@chakra-ui/react'
 
@@ -7,7 +10,7 @@ export default class Document extends NextDocument {
       <Html>
         <Head />
         <body>
-          {/* Make Color mode to persists when you refresh the page. */}
+          {/* Make color mode persist on page refresh */}
           <ColorModeScript />
           <Main />
           <NextScript />
