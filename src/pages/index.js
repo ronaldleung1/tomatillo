@@ -18,7 +18,7 @@ const Index = () => (
       <Hero textAlign="center" title="Tomatillo"/>
       <ColorModeSwitcher />
       <Container>
-        <Text>A Pomodoro timer for developers.</Text>
+        <Text>A Pomodoro timer for open-source developers.</Text>
         <Timer />
       </Container>
       <Footer justifyContent="center">

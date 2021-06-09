@@ -40,8 +40,8 @@ export const TaskList = (props) => {
         {tasks.map((task, index) => // puts each task in its own Text component
           <Flex key={index} my={2} p={4} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
             <Box>
-              <Text fontSize="lg" mb={2}>{task.title}</Text>
-              {task.repo !== null &&
+              <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
+              {task.repo &&
               <Link href={task.repo["html_url"]} isExternal>
                 <Box p={3} borderWidth="1px" borderRadius="lg">
                   <Text fontWeight="bold">{task.repo["full_name"]}</Text>

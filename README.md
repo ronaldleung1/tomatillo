@@ -1,7 +1,6 @@
 # Tomatillo
 
-Tomatillo is a supercharged pomodoro timer with features for open source developers.
-
+[Tomatillo](https://tomatillo.now.sh/) is a supercharged pomodoro timer with features for open source developers.
 
 ## Development environment setup
 
