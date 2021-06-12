@@ -24,13 +24,14 @@ export const TaskList = (props) => {
       fetcher(`https://api.github.com/repos/${value.repo}`)
         .then(repo => {
           task = {title: value.title, repo: repo};
-          setTasks(values => [...values, task])});
+          setTasks(values => [...values, task])
+          setCurrentTask(task)});
     } else {
       task = {title: value.title};
       // spread operator `...` to push new value to tasks array
       setTasks(values => [...values, task]);
+      setCurrentTask(task);
     }
-    setCurrentTask(task);
   }
 
   const handleDelete = (index) => {
@@ -43,7 +44,7 @@ export const TaskList = (props) => {
     <Box {...props}>
       <TaskModal onSubmit={handleSubmit} />
       {currentTask && <>
-        <Text color="gray" mt={6}>CURRENTLY WORKING ON</Text>
+        <Text color="gray" textTransform="uppercase" mt={6} mb={2}>Currently working on</Text>
         <Flex mb={6} p={4} alignItems="center" boxShadow="base" borderWidth="1px" borderRadius="lg" borderLeftWidth="8px" borderLeftColor="whatsapp.500" textAlign="left">
           <Box>
             <Text fontSize="lg" mb={currentTask.repo && 2}>{currentTask.title}</Text>
