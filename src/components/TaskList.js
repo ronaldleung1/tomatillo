@@ -75,6 +75,7 @@ export const TaskList = (props) => {
             borderWidth="1px"
             borderRadius="lg"
             _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
+            /*onClick={currentTask ? null : ()=>setCurrentTask(index)}*/
           >
             <Box>
               <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
