@@ -17,7 +17,7 @@ import {
 import React, { useState } from 'react';
 import { Plus } from 'react-feather';
 
-export const TaskModal = ({onSubmit}) => {
+export const TaskModal = ({onSubmit, ...props}) => {
   // current value in form input
   const [value, setValue] = useState({
     title: "",
@@ -52,7 +52,7 @@ export const TaskModal = ({onSubmit}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Button onClick={onOpen}><Plus size={18}/>Add Task</Button>
+      <Button onClick={onOpen} {...props}><Plus size={18}/>Add Task</Button>
       <Modal
         isCentered
         onClose={onClose}

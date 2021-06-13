@@ -42,9 +42,9 @@ export const TaskList = (props) => {
 
   return (
     <Box {...props}>
-      <TaskModal onSubmit={handleSubmit} />
-      {currentTask && <>
-        <Text color="gray" textTransform="uppercase" mt={6} mb={2}>Currently working on</Text>
+      <TaskModal onSubmit={handleSubmit} mb={6}/>
+      {currentTask ? <>
+        <Text color="gray" textTransform="uppercase" mb={2}>Currently working on</Text>
         <Flex mb={6} p={4} alignItems="center" boxShadow="base" borderWidth="1px" borderRadius="lg" borderLeftWidth="8px" borderLeftColor="whatsapp.500" textAlign="left">
           <Box>
             <Text fontSize="lg" mb={currentTask.repo && 2}>{currentTask.title}</Text>
@@ -57,15 +57,25 @@ export const TaskList = (props) => {
             </Link>}
           </Box>
           <Spacer />
-          {/* arrow function `=>` so handleDelete isn't called on render */}
-          <Button onClick={() => handleDelete(index)} ml={2} colorScheme="red" variant="ghost">
+          <Button onClick={() => setCurrentTask(null)} ml={2} colorScheme="red" variant="ghost">
             <Trash size={18}/>
           </Button>
         </Flex>
-      </>}
+      </> :
+      (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
       <Flex direction="column-reverse">
         {tasks.filter((task) => currentTask !== task).map((task, index) => // puts each task in its own Text component
-          <Flex key={index} my={2} p={4} alignItems="center" boxShadow="base" textAlign="left" borderWidth="1px" borderRadius="lg">
+          <Flex 
+            key={index}
+            my={2}
+            p={4}
+            alignItems="center"
+            boxShadow="base"
+            textAlign="left"
+            borderWidth="1px"
+            borderRadius="lg"
+            _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
+          >
             <Box>
               <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
               {task.repo &&
