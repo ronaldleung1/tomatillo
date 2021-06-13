@@ -5,6 +5,7 @@
 import { Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
 import React, { useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
+import { v4 as uuidv4 } from 'uuid'; // generates unique id's for each task
 
 import { TaskModal } from "./TaskModal"
 import { Trash } from "react-feather";
@@ -20,23 +21,24 @@ export const TaskList = (props) => {
 
   const handleSubmit = (value) => {
     let task;
+    let uuid = uuidv4(); // creates unique id
     if(value.repo) {
       fetcher(`https://api.github.com/repos/${value.repo}`)
         .then(repo => {
-          task = {title: value.title, repo: repo};
+          task = {id: uuid, title: value.title, repo: repo};
           setTasks(values => [...values, task])
           setCurrentTask(task)});
     } else {
-      task = {title: value.title};
+      task = {id: uuid, title: value.title};
       // spread operator `...` to push new value to tasks array
       setTasks(values => [...values, task]);
       setCurrentTask(task);
     }
   }
 
-  const handleDelete = (index) => {
-    // filters out tasks with matching index
-    const newTasks = tasks.filter((task, id) => id !== index);
+  const handleDelete = (deletedTask) => {
+    // filters out tasks with matching id
+    const newTasks = tasks.filter((task) => task.id !== deletedTask.id);
     setTasks(newTasks);
   }
 
@@ -57,16 +59,16 @@ export const TaskList = (props) => {
             </Link>}
           </Box>
           <Spacer />
-          <Button onClick={() => setCurrentTask(null)} ml={2} colorScheme="red" variant="ghost">
+          <Button onClick={() => {handleDelete(currentTask); setCurrentTask(null)}} ml={2} colorScheme="red" variant="ghost">
             <Trash size={18}/>
           </Button>
         </Flex>
       </> :
       (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
       <Flex direction="column-reverse">
-        {tasks.filter((task) => currentTask !== task).map((task, index) => // puts each task in its own Text component
+        {tasks.filter((task) => currentTask !== task).map((task) => // puts each task in its own Text component
           <Flex 
-            key={index}
+            key={task.id}
             my={2}
             p={4}
             alignItems="center"
@@ -89,7 +91,7 @@ export const TaskList = (props) => {
             </Box>
             <Spacer />
             {/* arrow function `=>` so handleDelete isn't called on render */}
-            <Button onClick={() => handleDelete(index)} ml={2} colorScheme="red" variant="ghost">
+            <Button onClick={() => handleDelete(task)} ml={2} colorScheme="red" variant="ghost">
               <Trash size={18}/>
             </Button>
           </Flex>
