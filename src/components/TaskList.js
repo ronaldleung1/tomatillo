@@ -26,13 +26,12 @@ export const TaskList = (props) => {
       fetcher(`https://api.github.com/repos/${value.repo}`)
         .then(repo => {
           task = {id: uuid, title: value.title, repo: repo};
-          setTasks(values => [...values, task])
-          setCurrentTask(task)});
+          setTasks(values => [...values, task]);
+        });
     } else {
       task = {id: uuid, title: value.title};
       // spread operator `...` to push new value to tasks array
       setTasks(values => [...values, task]);
-      setCurrentTask(task);
     }
   }
 
@@ -77,7 +76,7 @@ export const TaskList = (props) => {
             borderWidth="1px"
             borderRadius="lg"
             _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
-            /*onClick={currentTask ? null : ()=>setCurrentTask(index)}*/
+            onClick={currentTask ? null : () => setCurrentTask(task)}
           >
             <Box>
               <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
