@@ -2,13 +2,13 @@
  * Displays a list of tasks and handles fetching from GitHub API
  * Contains internal state and ability to delete tasks
  */
-import { Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
+import { Flex, Box, Button, ButtonGroup, Text, Link, Spacer, IconButton } from "@chakra-ui/react";
 import React, { useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
 import { v4 as uuidv4 } from 'uuid'; // generates unique id's for each task
 
 import { TaskModal } from "./TaskModal"
-import { Trash } from "react-feather";
+import { Check, Trash, X } from "react-feather";
 
 export const TaskList = (props) => {
   // array containing names of tasks
@@ -46,7 +46,7 @@ export const TaskList = (props) => {
       <TaskModal onSubmit={handleSubmit} mb={6}/>
       {currentTask ? <>
         <Text color="gray" textTransform="uppercase" mb={2}>Currently working on</Text>
-        <Flex mb={6} p={4} alignItems="center" boxShadow="base" borderWidth="1px" borderRadius="lg" borderLeftWidth="8px" borderLeftColor="whatsapp.500" textAlign="left">
+        <Flex mb={3} p={4} alignItems="center" boxShadow="base" borderWidth="1px" borderRadius="lg" borderLeftWidth="8px" borderLeftColor="whatsapp.500" textAlign="left">
           <Box>
             <Text fontSize="lg" mb={currentTask.repo && 2}>{currentTask.title}</Text>
             {currentTask.repo &&
@@ -62,6 +62,10 @@ export const TaskList = (props) => {
             <Trash size={18}/>
           </Button>
         </Flex>
+        <ButtonGroup mb={6} variant="outline">
+          <IconButton icon={<Check />} colorScheme="green" borderColor="gray.200" boxShadow="base" />
+          <IconButton icon={<X />} colorScheme="red" borderColor="gray.200" boxShadow="base" />
+        </ButtonGroup>
       </> :
       (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
       <Flex direction="column-reverse">
