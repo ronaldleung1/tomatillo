@@ -46,9 +46,9 @@ export const TaskList = (props) => {
     setCurrentTask(null);
   }
 
-  const handleDelete = (deletedTask, taskList) => {
+  const handleDelete = (deletedTask) => {
     // filters out tasks with matching id
-    const newTasks = taskList.filter((task) => task.id !== deletedTask.id);
+    const newTasks = tasks.filter((task) => task.id !== deletedTask.id);
     setTasks(newTasks);
   }
 
@@ -60,6 +60,7 @@ export const TaskList = (props) => {
         <Text color="gray" textTransform="uppercase" mb={2}>Currently working on</Text>
         <Task
           task={currentTask}
+          onDelete={() => {handleDelete(currentTask); setCurrentTask(null)}}
           mb={3}
           borderLeftWidth="8px"
           borderLeftColor="whatsapp.500"
@@ -91,8 +92,9 @@ export const TaskList = (props) => {
         {tasks.filter((task) => currentTask !== task && !task.complete).map((task) => // puts each task in its own Text component
           <Task
             task={task}
+            onDelete={() => handleDelete(task)}
+            onSelect={currentTask ? null : () => setCurrentTask(task)}
             _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
-            onClick={currentTask ? null : () => setCurrentTask(task)}
           />
           // <Flex 
           //   key={task.id}
@@ -127,6 +129,7 @@ export const TaskList = (props) => {
         {tasks.filter((task) => task.complete).map((task) =>
           <Task
             task={task}
+            onDelete={() => handleDelete(task)}
             color="gray.500"
             textDecoration="line-through"
           />

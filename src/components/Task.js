@@ -1,6 +1,6 @@
-import { Flex, Box, Button, Text, Link, Spacer } from "@chakra-ui/react";
+import { Flex, Box, Button, Text, Link } from "@chakra-ui/react";
 import { Trash } from "react-feather";
-export const Task = ({task, onClick, ...props}) => {
+export const Task = ({task, onSelect, onDelete, ...props}) => {
   return (
     <Flex 
       key={task.id}
@@ -12,7 +12,7 @@ export const Task = ({task, onClick, ...props}) => {
       borderRadius="lg"
       {...props}
     >
-      <Box onClick={onClick} p={4} width="100%">
+      <Box onClick={onSelect} p={4} width="100%">
         <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
         {task.repo &&
         <Link href={task.repo["html_url"]} isExternal>
@@ -25,7 +25,7 @@ export const Task = ({task, onClick, ...props}) => {
       
       {/* arrow function `=>` so handleDelete isn't called on render */}
       <Box p={4}>
-        <Button colorScheme="red" variant="ghost">
+        <Button onClick={onDelete} colorScheme="red" variant="ghost">
           <Trash size={18}/>
         </Button>
       </Box>
