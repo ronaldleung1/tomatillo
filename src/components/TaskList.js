@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
 import { v4 as uuidv4 } from 'uuid'; // generates unique id's for each task
 
+import { Task } from "./Task"
 import { TaskModal } from "./TaskModal"
 import { Check, Trash, X } from "react-feather";
 
@@ -82,34 +83,39 @@ export const TaskList = (props) => {
       <Flex direction="column">
         {/* uncompleted tasks */}
         {tasks.filter((task) => currentTask !== task).map((task) => // puts each task in its own Text component
-          <Flex 
-            key={task.id}
-            my={2}
-            p={4}
-            alignItems="center"
-            boxShadow="base"
-            textAlign="left"
-            borderWidth="1px"
-            borderRadius="lg"
+          <Task
+            task={task}
             _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
             onClick={currentTask ? null : () => setCurrentTask(task)}
-          >
-            <Box>
-              <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
-              {task.repo &&
-              <Link href={task.repo["html_url"]} isExternal>
-                <Box p={3} borderWidth="1px" borderRadius="lg">
-                  <Text fontWeight="bold">{task.repo["full_name"]}</Text>
-                  <Text color="gray.500">{task.repo["description"]}</Text>
-                </Box>
-              </Link>}
-            </Box>
-            <Spacer />
-            {/* arrow function `=>` so handleDelete isn't called on render */}
-            <Button onClick={() => handleDelete(task, tasks)} ml={2} colorScheme="red" variant="ghost">
-              <Trash size={18}/>
-            </Button>
-          </Flex>
+          />
+          // <Flex 
+          //   key={task.id}
+          //   my={2}
+          //   p={4}
+          //   alignItems="center"
+          //   boxShadow="base"
+          //   textAlign="left"
+          //   borderWidth="1px"
+          //   borderRadius="lg"
+          //   _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
+          //   onClick={currentTask ? null : () => setCurrentTask(task)}
+          // >
+          //   <Box>
+          //     <Text fontSize="lg" mb={task.repo && 2}>{task.title}</Text>
+          //     {task.repo &&
+          //     <Link href={task.repo["html_url"]} isExternal>
+          //       <Box p={3} borderWidth="1px" borderRadius="lg">
+          //         <Text fontWeight="bold">{task.repo["full_name"]}</Text>
+          //         <Text color="gray.500">{task.repo["description"]}</Text>
+          //       </Box>
+          //     </Link>}
+          //   </Box>
+          //   <Spacer />
+          //   {/* arrow function `=>` so handleDelete isn't called on render */}
+          //   <Button onClick={() => handleDelete(task, tasks)} ml={2} colorScheme="red" variant="ghost">
+          //     <Trash size={18}/>
+          //   </Button>
+          // </Flex>
         )}
         {/* completed tasks */}
         {completedTasks.map((task) =>
