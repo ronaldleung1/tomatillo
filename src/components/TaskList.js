@@ -14,7 +14,6 @@ import { Check, Trash, X } from "react-feather";
 export const TaskList = (props) => {
   // array containing names of tasks
   const [tasks, setTasks] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
 
   // wrapper of fetch() parsed to JSON
@@ -44,9 +43,6 @@ export const TaskList = (props) => {
     let task = {...newTasks[index], complete: true};
     newTasks[index] = task;
     setTasks(newTasks);
-    // setTasks(newTasks);
-    // // adds to array of completed tasks
-    // setCompletedTasks(tasks => [...tasks, completedTask]);
     setCurrentTask(null);
   }
 
@@ -92,7 +88,7 @@ export const TaskList = (props) => {
       (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
       <Flex direction="column">
         {/* uncompleted tasks */}
-        {tasks.filter((task) => currentTask !== task).map((task) => // puts each task in its own Text component
+        {tasks.filter((task) => currentTask !== task && !task.complete).map((task) => // puts each task in its own Text component
           <Task
             task={task}
             _hover={currentTask ? {} : {borderLeftWidth: "8px"}}
@@ -128,7 +124,7 @@ export const TaskList = (props) => {
           // </Flex>
         )}
         {/* completed tasks */}
-        {completedTasks.map((task) =>
+        {tasks.filter((task) => task.complete).map((task) =>
           <Task
             task={task}
             color="gray.500"
