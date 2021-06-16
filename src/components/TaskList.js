@@ -37,17 +37,17 @@ export const TaskList = (props) => {
   }
 
   const handleComplete = (completedTask) => {
-    // append the complete to completedTask
-    // find the task
+    // filters out task with matching id with completedTask
     const newTasks = tasks.filter((task) => task.id !== completedTask.id);
     setTasks(newTasks);
+    // adds to array of completed tasks
     setCompletedTasks(tasks => [...tasks, completedTask]);
     setCurrentTask(null);
   }
 
-  const handleDelete = (deletedTask) => {
+  const handleDelete = (deletedTask, taskList) => {
     // filters out tasks with matching id
-    const newTasks = tasks.filter((task) => task.id !== deletedTask.id);
+    const newTasks = taskList.filter((task) => task.id !== deletedTask.id);
     setTasks(newTasks);
   }
 
@@ -55,6 +55,7 @@ export const TaskList = (props) => {
     <Box {...props}>
       <TaskModal onSubmit={handleSubmit} mb={6}/>
       {currentTask ? <>
+        {/* selected task */}
         <Text color="gray" textTransform="uppercase" mb={2}>Currently working on</Text>
         <Flex mb={3} p={4} alignItems="center" boxShadow="base" borderWidth="1px" borderRadius="lg" borderLeftWidth="8px" borderLeftColor="whatsapp.500" textAlign="left">
           <Box>
@@ -68,7 +69,7 @@ export const TaskList = (props) => {
             </Link>}
           </Box>
           <Spacer />
-          <Button onClick={() => {handleDelete(currentTask); setCurrentTask(null)}} ml={2} colorScheme="red" variant="ghost">
+          <Button onClick={() => {handleDelete(currentTask, tasks); setCurrentTask(null)}} ml={2} colorScheme="red" variant="ghost">
             <Trash size={18}/>
           </Button>
         </Flex>
@@ -78,35 +79,8 @@ export const TaskList = (props) => {
         </ButtonGroup>
       </> :
       (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
-      <Flex direction="column-reverse">
-        {completedTasks.map((task) =>
-          <Flex 
-            key={task.id}
-            my={2}
-            p={4}
-            alignItems="center"
-            boxShadow="base"
-            textAlign="left"
-            borderWidth="1px"
-            borderRadius="lg"
-          >
-            <Box>
-              <Text fontSize="lg" as="s" mb={task.repo && 2}>{task.title}</Text>
-              {task.repo &&
-              <Link href={task.repo["html_url"]} isExternal>
-                <Box p={3} borderWidth="1px" borderRadius="lg">
-                  <Text fontWeight="bold">{task.repo["full_name"]}</Text>
-                  <Text color="gray.500">{task.repo["description"]}</Text>
-                </Box>
-              </Link>}
-            </Box>
-            <Spacer />
-            {/* arrow function `=>` so handleDelete isn't called on render */}
-            <Button onClick={() => handleDelete(task)} ml={2} colorScheme="red" variant="ghost">
-              <Trash size={18}/>
-            </Button>
-          </Flex>
-        )}
+      <Flex direction="column">
+        {/* uncompleted tasks */}
         {tasks.filter((task) => currentTask !== task).map((task) => // puts each task in its own Text component
           <Flex 
             key={task.id}
@@ -132,7 +106,37 @@ export const TaskList = (props) => {
             </Box>
             <Spacer />
             {/* arrow function `=>` so handleDelete isn't called on render */}
-            <Button onClick={() => handleDelete(task)} ml={2} colorScheme="red" variant="ghost">
+            <Button onClick={() => handleDelete(task, tasks)} ml={2} colorScheme="red" variant="ghost">
+              <Trash size={18}/>
+            </Button>
+          </Flex>
+        )}
+        {/* completed tasks */}
+        {completedTasks.map((task) =>
+          <Flex 
+            key={task.id}
+            my={2}
+            p={4}
+            alignItems="center"
+            boxShadow="base"
+            textAlign="left"
+            color="gray.500"
+            borderWidth="1px"
+            borderRadius="lg"
+          >
+            <Box>
+              <Text fontSize="lg" as="s" mb={task.repo && 2}>{task.title}</Text>
+              {task.repo &&
+              <Link href={task.repo["html_url"]} isExternal>
+                <Box p={3} borderWidth="1px" borderRadius="lg">
+                  <Text fontWeight="bold">{task.repo["full_name"]}</Text>
+                  <Text color="gray.500">{task.repo["description"]}</Text>
+                </Box>
+              </Link>}
+            </Box>
+            <Spacer />
+            {/* arrow function `=>` so handleDelete isn't called on render */}
+            <Button onClick={() => handleDelete(task, completedTasks)} ml={2} colorScheme="red" variant="ghost">
               <Trash size={18}/>
             </Button>
           </Flex>
