@@ -22,27 +22,31 @@ export const TaskList = (props) => {
   
 
   const handleSubmit = (value) => {
-    let task;
     let uuid = uuidv4(); // creates unique id
+    let task = {id: uuid, title: value.title, complete: false}
     if(value.repo) {
       fetcher(`https://api.github.com/repos/${value.repo}`)
         .then(repo => {
-          task = {id: uuid, title: value.title, repo: repo};
+          task = {...task, repo: repo};
           setTasks(values => [...values, task]);
         });
     } else {
-      task = {id: uuid, title: value.title};
       // spread operator `...` to push new value to tasks array
       setTasks(values => [...values, task]);
     }
   }
 
   const handleComplete = (completedTask) => {
-    // filters out task with matching id with completedTask
-    const newTasks = tasks.filter((task) => task.id !== completedTask.id);
+    // find index where the completed task is located
+    let newTasks = [...tasks];
+    const index = newTasks.findIndex((task) => task.id === completedTask.id);
+    // adds `complete` flag to task
+    let task = {...newTasks[index], complete: true};
+    newTasks[index] = task;
     setTasks(newTasks);
-    // adds to array of completed tasks
-    setCompletedTasks(tasks => [...tasks, completedTask]);
+    // setTasks(newTasks);
+    // // adds to array of completed tasks
+    // setCompletedTasks(tasks => [...tasks, completedTask]);
     setCurrentTask(null);
   }
 
