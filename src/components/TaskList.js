@@ -2,14 +2,14 @@
  * Displays a list of tasks and handles fetching from GitHub API
  * Contains internal state and ability to delete tasks
  */
-import { Flex, Box, Button, ButtonGroup, Text, Link, Spacer, IconButton } from "@chakra-ui/react";
-import React, { useState } from 'react';
+import { Flex, Box, ButtonGroup, Text, IconButton } from "@chakra-ui/react";
+import React, { useState, useEffect } from 'react';
 // import useSWR from 'swr'; // fetching from GitHub API
 import { v4 as uuidv4 } from 'uuid'; // generates unique id's for each task
 
 import { Task } from "./Task"
 import { TaskModal } from "./TaskModal"
-import { Check, Trash, X } from "react-feather";
+import { Check, X } from "react-feather";
 
 export const TaskList = (props) => {
   // array containing names of tasks
@@ -19,6 +19,16 @@ export const TaskList = (props) => {
   // wrapper of fetch() parsed to JSON
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   
+  useEffect(() => {
+    setTasks(JSON.parse(localStorage.getItem("tasks")) || []);
+    setCurrentTask(JSON.parse(localStorage.getItem("currentTask")) || null);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+  useEffect(() => {
+    localStorage.setItem("currentTask",  JSON.stringify(currentTask));
+  }, [currentTask]);
 
   const handleSubmit = (value) => {
     let uuid = uuidv4(); // creates unique id
