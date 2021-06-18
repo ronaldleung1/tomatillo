@@ -27,7 +27,7 @@ export const TaskList = (props) => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
   useEffect(() => {
-    localStorage.setItem("currentTask",  JSON.stringify(currentTask));
+    localStorage.setItem("currentTask", JSON.stringify(currentTask));
   }, [currentTask]);
 
   const handleSubmit = (value) => {
@@ -83,7 +83,7 @@ export const TaskList = (props) => {
       (tasks.length > 0 && <Text color="gray" textTransform="uppercase" mb={2}>Select a task</Text>)}
       <Flex direction="column">
         {/* uncompleted tasks */}
-        {tasks.filter((task) => currentTask !== task && !task.complete).map((task) => // puts each task in its own Text component
+        {tasks.filter((task) => (currentTask ? currentTask.id !== task.id : true) && !task.complete).map((task) =>
           <Task
             task={task}
             onDelete={() => handleDelete(task)}
